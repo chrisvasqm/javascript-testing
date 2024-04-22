@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { fizzBuzz, max } from '../src/intro';
+import { calculateAverage, fizzBuzz, max } from '../src/intro';
 
 describe('Max', () => {
     it('should return the first argument if it is greater', () => {
@@ -30,5 +30,23 @@ describe('FizzBuzz', () => {
 
     it('should return the same number if its not divisible by either 3 or 5', () => {
         expect(fizzBuzz(1)).toBe('1');
+    })
+})
+
+describe('calculateAverage', () => {
+    it('should return NaN when given an empty array', () => {
+        expect(calculateAverage([])).toBe(NaN);
+    })
+
+    it('should return the same number if given an array with a single element', () => {
+        expect(calculateAverage([1])).toBe(1);
+    })
+
+    it('should return the average when given an array of two elements', () => {
+        expect(calculateAverage([1, 2])).toBe(1.5);
+    })
+
+    it('should return the average when given an array of three elements', () => {
+        expect(calculateAverage([1, 2, 3])).toBe(2);
     })
 })
