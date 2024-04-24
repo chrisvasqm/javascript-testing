@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { calculateDiscount, canDrive, getCoupons, isPriceInRange, isValidUsername, validateUserInput } from '../src/core';
+import { calculateDiscount, canDrive, fetchData, getCoupons, isPriceInRange, isValidUsername, validateUserInput } from '../src/core';
 
 describe('getCoupons', () => {
 
@@ -151,4 +151,13 @@ describe('canDrive', () => {
         expect(canDrive(age, country)).toBe(result);
     })
 
+})
+
+describe('fetchData', () => {
+    it('should return an array of numbers', async () => {
+        const result = await fetchData();
+
+        expect(Array.isArray(result)).toBe(true);
+        expect(result.length).toBeGreaterThan(0);
+    })
 })
