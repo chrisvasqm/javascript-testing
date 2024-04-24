@@ -56,7 +56,7 @@ describe('calculateDiscount', () => {
     it('should handle invalid discount code', () => {
         expect(calculateDiscount(10, 'INVALID')).toBe(10)
     })
-    
+
 })
 
 describe('validateUserInput', () => {
@@ -97,7 +97,7 @@ describe('validateUserInput', () => {
 })
 
 describe('isPriceInRange', () => {
-    
+
     it('should return false if price is outside the range', () => {
         expect(isPriceInRange(-1, 0, 100)).toBe(false);
         expect(isPriceInRange(101, 0, 100)).toBe(false);
@@ -115,7 +115,7 @@ describe('isPriceInRange', () => {
 })
 
 describe('isValidUsername', () => {
-    
+
     it('should return false if length is outside the range', () => {
         expect(isValidUsername('a'.repeat(4))).toBe(false);
         expect(isValidUsername('a'.repeat(16))).toBe(false);
@@ -139,24 +139,20 @@ describe('isValidUsername', () => {
 })
 
 describe('canDrive', () => {
-    
+
     it('should return false if countryCode is invalid', () => {
         expect(canDrive(18, 'ES')).toMatch(/invalid/i);
     })
 
-    it('should return false if age is below minimum', () => {
-        expect(canDrive(15, 'US')).toBe(false);
-        expect(canDrive(16, 'UK')).toBe(false);
-    })
-
-    it('should return true if age is equal to minimum', () => {
-        expect(canDrive(16, 'US')).toBe(true);
-        expect(canDrive(17, 'UK')).toBe(true);
-    })
-
-    it('should return true if age is greater than minimum', () => {
-        expect(canDrive(17, 'US')).toBe(true);
-        expect(canDrive(18, 'UK')).toBe(true);
+    it.each([
+        { age: 15, country: 'US', result: false },
+        { age: 16, country: 'US', result: true },
+        { age: 17, country: 'US', result: true },
+        { age: 16, country: 'UK', result: false },
+        { age: 17, country: 'UK', result: true },
+        { age: 18, country: 'UK', result: true },
+    ])('should return $result for $age, $country', ({ age, country, result }) => {
+        expect(canDrive(age, country)).toBe(result);
     })
 
 })
