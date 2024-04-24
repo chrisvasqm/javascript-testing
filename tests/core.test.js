@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { calculateDiscount, getCoupons, isPriceInRange, isValidUsername, validateUserInput } from '../src/core';
+import { calculateDiscount, canDrive, getCoupons, isPriceInRange, isValidUsername, validateUserInput } from '../src/core';
 
 describe('getCoupons', () => {
 
@@ -134,6 +134,29 @@ describe('isValidUsername', () => {
         expect(isValidUsername(null)).toBe(false);
         expect(isValidUsername(undefined)).toBe(false);
         expect(isValidUsername(0)).toBe(false);
+    })
+
+})
+
+describe('canDrive', () => {
+    
+    it('should return false if countryCode is invalid', () => {
+        expect(canDrive(18, 'ES')).toMatch(/invalid/i);
+    })
+
+    it('should return false if age is below minimum', () => {
+        expect(canDrive(15, 'US')).toBe(false);
+        expect(canDrive(16, 'UK')).toBe(false);
+    })
+
+    it('should return true if age is equal to minimum', () => {
+        expect(canDrive(16, 'US')).toBe(true);
+        expect(canDrive(17, 'UK')).toBe(true);
+    })
+
+    it('should return true if age is greater than minimum', () => {
+        expect(canDrive(17, 'US')).toBe(true);
+        expect(canDrive(18, 'UK')).toBe(true);
     })
 
 })
