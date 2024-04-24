@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import { calculateDiscount, canDrive, fetchData, getCoupons, isPriceInRange, isValidUsername, validateUserInput } from '../src/core';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { calculateDiscount, canDrive, fetchData, getCoupons, isPriceInRange, isValidUsername, Stack, validateUserInput } from '../src/core';
 
 describe('getCoupons', () => {
 
@@ -160,4 +160,72 @@ describe('fetchData', () => {
         expect(Array.isArray(result)).toBe(true);
         expect(result.length).toBeGreaterThan(0);
     })
+})
+
+describe('Stack', () => {
+    let stack = null;
+
+    beforeEach(() => {
+        stack = new Stack();
+    })
+
+    it('should be able to add an item to the stack', () => {
+        stack.push(1);
+
+        expect(stack.size()).toBe(1);
+    })
+
+    it('should be able to return and remove an item from the stack', () => {
+        stack.push(1);
+
+        const result = stack.pop();
+
+        expect(result).toBe(1);
+        expect(stack.size()).toBe(0);
+    })
+
+    it('should throw an error when popping if the stack is already empty', () => {
+        expect(() => stack.pop()).toThrow(/empty/i)
+    })
+
+    it('should return the last item from the stack', () => {
+        stack.push(1);
+        stack.push(2);
+
+        const result = stack.peek();
+
+        expect(result).toBe(2);
+    })
+
+    it('should throw an error when peeking if the stack is empty', () => {
+        expect(() => stack.peek()).toThrow(/empty/i);
+    })
+
+    it('should return true if the stack already is empty', () => {
+        expect(stack.isEmpty()).toBe(true);
+    })
+
+    it('should return false if the stack is not empty', () => {
+        stack.push(1);
+
+        expect(stack.isEmpty()).toBe(false);
+    })
+
+    it('should return the number of items inside the stack', () => {
+        expect(stack.size()).toBe(0);
+        
+        stack.push(1);
+        
+        expect(stack.size()).toBe(1);
+    })
+
+    it('should clear all the items inside a stack', () => {
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+        stack.clear();
+
+        expect(stack.size()).toBe(0);
+    })
+
 })
