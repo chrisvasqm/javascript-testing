@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { calculateDiscount, getCoupons, isPriceInRange, validateUserInput } from '../src/core';
+import { calculateDiscount, getCoupons, isPriceInRange, isValidUsername, validateUserInput } from '../src/core';
 
 describe('getCoupons', () => {
 
@@ -110,6 +110,30 @@ describe('isPriceInRange', () => {
 
     it('should return true if the price is within the range', () => {
         expect(isPriceInRange(50, 0, 100)).toBe(true);
+    })
+
+})
+
+describe('isValidUsername', () => {
+    
+    it('should return false if length is outside the range', () => {
+        expect(isValidUsername('a'.repeat(4))).toBe(false);
+        expect(isValidUsername('a'.repeat(16))).toBe(false);
+    })
+
+    it('should return true if length is equal to min and max lengths', () => {
+        expect(isValidUsername('a'.repeat(5))).toBe(true);
+        expect(isValidUsername('a'.repeat(15))).toBe(true);
+    })
+
+    it('should return true if legth is between min and max lengths', () => {
+        expect(isValidUsername('a'.repeat(10))).toBe(true);
+    })
+
+    it('should return false if username is falsy', () => {
+        expect(isValidUsername(null)).toBe(false);
+        expect(isValidUsername(undefined)).toBe(false);
+        expect(isValidUsername(0)).toBe(false);
     })
 
 })
